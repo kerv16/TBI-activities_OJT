@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
-use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
@@ -65,19 +64,11 @@ class PostResource extends Resource
                         Select::make('categories')
                             ->multiple()
                             ->relationship('categories', 'title')
-                            ->searchable()
-                            ->getSearchResultsUsing(fn (string $search): array =>
-                            Category::where('title', 'like', "%{$search}%")
-                                ->limit(50)
-                                ->pluck('title', 'id')
-                                ->toArray())
-                            ->getOptionLabelUsing(fn ($value): ?string =>
-                            Category::find($value)?->title),
+                            ->searchable(),
                     ]
                 ),
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table

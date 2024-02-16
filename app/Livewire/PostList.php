@@ -50,7 +50,7 @@ class PostList extends Component
             ->when($this->activeCategory, function ($query) {
                 $query->withCategory($this->category);
             })
-            ->where('title', 'like', "%{$this->search}%")
+            ->where('title', 'ilike', "%{$this->search}%")
             ->paginate(3);
     }
 

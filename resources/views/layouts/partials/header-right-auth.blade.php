@@ -1,4 +1,4 @@
-<a class="flex space-x-2 items-center hover:text-blue-700 text-sm text-black font-semibold"
+<a class="flex space-x-2 items-center hover:text-blue-700 text-lg text-black font-semibold"
    href="http://127.0.0.1:8000/admin">
     Admin
 </a>

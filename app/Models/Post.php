@@ -50,7 +50,6 @@ class Post extends Model
         });
     }
 
-
     public function scopeFeatured($query)
     {
         $query->where('featured', true);
@@ -73,5 +72,15 @@ class Post extends Model
         $isUrl = str_contains($this->image, 'http');
 
         return ($isUrl) ? $this->image : Storage::disk('public')->url($this->image);
+    }
+
+    public function getLowerAuthorNameAttribute()
+    {
+        return strtolower($this->author->name);
+    }
+
+    public function getLowerCategoriesTitleAttribute()
+    {
+        return strtolower($this->categories->pluck('title')->join(', '));
     }
 }

@@ -6,6 +6,7 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -37,8 +38,28 @@ class CategoryResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug')->required()->minLength(1)->unique(ignoreRecord: true)->maxLength(150),
-                TextInput::make('text_color')->nullable(),
-                TextInput::make('bg_color')->nullable(),
+                Select::make('text_color')
+                    ->options([
+                        'white' => 'White',
+                        'gray' => 'Gray',
+                        'blue' => 'Blue',
+                        'red' => 'Red',
+                        'yellow' => 'Yellow',
+                        // Add more options as needed
+                    ])
+                    ->nullable(),
+                Select::make('bg_color')
+                    ->options([
+                        'gray' => 'Gray',
+                        'blue' => 'Blue',
+                        'darkblue' => 'Dark Blue',
+                        'red' => 'Red',
+                        'yellow' => 'Yellow',
+                        'gold' => 'Gold',
+                        'green' => 'Green',
+                        // Add more options as needed
+                    ])
+                    ->nullable(),
             ]);
     }
 

@@ -16,7 +16,7 @@
         'darkblue' => 'bg-blue-950',
         'red' => 'bg-red-100',
         'yellow' => 'bg-yellow-100',
-        'goldyellow' => 'bg-yellow-600',
+        'gold' => 'bg-yellow-600',
         'green' => 'bg-green-700',
         default => 'bg-gray-100',
     };
