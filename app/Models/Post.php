@@ -73,11 +73,4 @@ class Post extends Model
 
         return ($isUrl) ? $this->image : Storage::disk('public')->url($this->image);
     }
-
-    public function scopeWithYear($query, $year)
-    {
-        if ($year) {
-            $query->whereRaw('date_part(\'year\', published_at) = ?', [$year]);
-        }
-    }
 }

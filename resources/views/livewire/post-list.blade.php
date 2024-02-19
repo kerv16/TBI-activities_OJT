@@ -14,6 +14,13 @@
             @if ($search)
                 Containing : {{ $search }}
             @endif
+            <select class="rounded-2xl text-center" wire:change="updateYear($event.target.value)">
+                <option value="">Select a year</option>
+                @for ($year = date('Y'); $year >= 2023; $year--)
+                    <option value="{{ $year }}">{{ $year }}</option>
+                @endfor
+            </select>
+
         </div>
         <div class="flex items-center space-x-4 font-light ">
             <button class="{{ $sort === 'desc' ? 'text-gray-900 border-b border-gray-700' : 'text-gray-500' }} py-4"
@@ -22,7 +29,7 @@
                     wire:click="setSort('asc')">Oldest</button>
         </div>
     </div>
-    <div class="py-4">
+    <div wire:key="postList{{ $year }}" class="py-4">
         @foreach ($this->posts as $post)
             <x-posts.post-item :post="$post" />
         @endforeach

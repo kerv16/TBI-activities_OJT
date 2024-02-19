@@ -23,6 +23,9 @@ class PostList extends Component
     #[Url()]
     public $category = '';
 
+    #[Url()]
+    public $year = '';
+
     public function setSort($sort)
     {
         $this->sort = ($sort === 'desc') ? 'desc' : 'asc';
@@ -35,10 +38,18 @@ class PostList extends Component
         $this->resetPage();
     }
 
+    public function updateYear($year)
+    {
+        $this->year = $year;
+        $this->posts = $this->posts(); // Manually update the posts data
+        $this->resetPage();
+    }
+
     public function clearFilters()
     {
         $this->search = '';
         $this->category = '';
+        $this->year = '';
         $this->resetPage();
     }
 
@@ -51,6 +62,9 @@ class PostList extends Component
                 $query->withCategory($this->category);
             })
             ->where('title', 'ilike', "%{$this->search}%")
+            ->when($this->year, function ($query) { // Filter posts by year
+                $query->whereYear('published_at', $this->year);
+            })
             ->paginate(3);
     }
 
