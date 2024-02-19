@@ -74,13 +74,10 @@ class Post extends Model
         return ($isUrl) ? $this->image : Storage::disk('public')->url($this->image);
     }
 
-    public function getLowerAuthorNameAttribute()
+    public function scopeWithYear($query, $year)
     {
-        return strtolower($this->author->name);
-    }
-
-    public function getLowerCategoriesTitleAttribute()
-    {
-        return strtolower($this->categories->pluck('title')->join(', '));
+        if ($year) {
+            $query->whereRaw('date_part(\'year\', published_at) = ?', [$year]);
+        }
     }
 }
