@@ -32,6 +32,11 @@
 
 @stack('modals')
 @livewireScripts
+<script>
+    window.addEventListener('clear-year-dropdown', () => {
+        document.getElementById('yearDropdown').value = '';
+    });
+</script>
 </body>
 
 </html>

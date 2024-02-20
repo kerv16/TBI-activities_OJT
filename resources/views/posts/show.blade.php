@@ -44,6 +44,5 @@
                 <x-posts.category-badge :category="$category" />
             @endforeach
         </div>
-
     </article>
 </x-app-layout>

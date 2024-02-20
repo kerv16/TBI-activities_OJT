@@ -26,6 +26,9 @@ class PostList extends Component
     #[Url()]
     public $year = '';
 
+    #[Url()]
+    public $selectedDate = '';
+
     public function setSort($sort)
     {
         $this->sort = ($sort === 'desc') ? 'desc' : 'asc';
@@ -41,6 +44,7 @@ class PostList extends Component
     public function updateYear($year)
     {
         $this->year = $year;
+        $this->selectedDate = ''; // Clear the selected date
         $this->posts = $this->posts(); // Manually update the posts data
         $this->resetPage();
     }
@@ -65,8 +69,40 @@ class PostList extends Component
             ->when($this->year, function ($query) { // Filter posts by year
                 $query->whereYear('published_at', $this->year);
             })
+            ->when($this->selectedDate, function ($query) { // Filter posts by selected date
+                $query->whereDate('published_at', $this->selectedDate);
+            })
             ->paginate(3);
     }
+
+    public function updatePostsList()
+    {
+        $this->posts = $this->posts(); // Manually update the posts data
+        $this->resetPage();
+    }
+
+    protected $listeners = ['refreshPostsList' => 'render'];
+    public function updatedSelectedDate($value)
+    {
+        $this->selectedDate = $value;
+        $this->date = ''; // Set the year property to an empty string
+        $this->year = '';
+        $this->posts = $this->posts(); // Manually update the posts data
+        $this->resetPage();
+        $this->dispatch('refreshPostsList'); // Dispatch the event
+    }
+
+    public function clearYearDropdown()
+    {
+        $this->year = ''; // Set the year property to an empty string
+        $this->posts = $this->posts(); // Manually update the posts data
+        $this->resetPage();
+        $this->dispatch('refreshPostsList'); // Dispatch the event
+
+        // Dispatch a custom browser event
+        $this->dispatch('clear-year-dropdown');
+    }
+
 
     #[Computed()]
     public function activeCategory()
