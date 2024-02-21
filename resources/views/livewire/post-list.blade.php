@@ -36,7 +36,6 @@
                 @endfor
             </select>
 
-
             <!-- This datepicker allows the user to filter posts by date. -->
             <input class="rounded-2xl" type="date" id="myDate" name="myDate" wire:model="selectedDate" wire:change="clearYearDropdown">
 
