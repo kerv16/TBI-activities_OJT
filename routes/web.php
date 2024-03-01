@@ -24,7 +24,4 @@ Route::middleware([
     Route::get('/events', [PostController::class, 'index'])->name('posts.index');
     Route::get('/report', [PostController::class, 'report'])->name('posts.report');
     Route::get('/events/{post:slug}', [PostController::class, 'show'])->name('posts.show');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 });

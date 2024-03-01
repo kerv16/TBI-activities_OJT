@@ -5,7 +5,7 @@
 <div {{ $attributes }}>
 
     <!-- This is a link to the post's detail page. -->
-    <a wire:navigate href="{{ route('posts.show', $post->slug) }}">
+    <a href="{{ route('posts.show', $post->slug) }}">
         <div>
             <!-- This is the post's thumbnail. -->
             <img class="w-full rounded-xl" src="{{ $post->getThumbnailUrl() }}">
@@ -18,7 +18,7 @@
         <!-- This section displays the post's category and published date. -->
         <div class="flex items-center mb-2 gap-x-2">
             <!-- If the post has a category, it displays a badge with the category's title. -->
-            @if ($category = $post->categories()->first())
+            @if ($category = $post->categories)
                 <x-posts.category-badge :category="$category" />
             @endif
             <!-- This is the post's published date. -->
@@ -26,7 +26,7 @@
         </div>
 
         <!-- This is a link to the post's detail page with the post's title. -->
-        <a wire:navigate href="{{ route('posts.show', $post->slug) }}"
+        <a href="{{ route('posts.show', $post->slug) }}"
            class="text-xl font-bold text-gray-900">{{ $post->title }}</a>
     </div>
 </div>

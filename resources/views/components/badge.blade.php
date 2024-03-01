@@ -11,11 +11,11 @@
     };
 
     $bgColor = match ($bgColor) {
-        'gray' => 'bg-gray-100',
-        'blue' => 'bg-blue-100',
+        'gray' => 'bg-gray-800',
+        'blue' => 'bg-blue-800',
         'darkblue' => 'bg-blue-950',
-        'red' => 'bg-red-100',
-        'yellow' => 'bg-yellow-100',
+        'red' => 'bg-red-800',
+        'yellow' => 'bg-yellow-800',
         'gold' => 'bg-yellow-600',
         'green' => 'bg-green-700',
         default => 'bg-gray-100',

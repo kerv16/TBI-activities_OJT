@@ -1,5 +1,5 @@
 @props(['post'])
-<article class="[&:not(:last-child)]:border-b border-gray-100 pb-10">
+<article {{ $attributes->merge(['class' => '[&:not(:last-child)]:border-b border-gray-100 pb-10']) }}>
     <!-- This is the main container for each post -->
     <div class="article-body grid grid-cols-12 gap-3 mt-5 items-start">
         <!-- This is the thumbnail of the post -->
