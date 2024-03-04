@@ -3,7 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +25,5 @@ Route::middleware([
     Route::get('/report', [PostController::class, 'report'])->name('posts.report');
     Route::get('/events/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 });
+
+Route::get('/generate-pdf/{year}/{month?}', [ReportController::class, 'generatePdfReport']);

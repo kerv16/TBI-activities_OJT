@@ -5,14 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Post extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -22,11 +20,32 @@ class Post extends Model
         'body',
         'published_at',
         'featured',
+        'number_of_participants',
+        'event_type',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function ($post) {
+            // Delete the thumbnail
+            Storage::disk('public')->delete($post->image);
+
+            // Parse the body content and delete the attachment
+            $bodyContent = json_decode($post->body, true);
+            if (isset($bodyContent['data-trix-attachment'])) {
+                $attachment = json_decode($bodyContent['data-trix-attachment'], true);
+                if (isset($attachment['href'])) {
+                    $filePath = str_replace('http://127.0.0.1:8000/storage/', '', $attachment['href']);
+                    $filePath = 'posts/images/' . $filePath; // prepend the directory path
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+        });
+    }
 
     public function author()
     {
@@ -48,11 +67,6 @@ class Post extends Model
         $query->whereHas('categories', function ($query) use ($category) {
             $query->where('slug', $category);
         });
-    }
-
-    public function scopeFeatured($query)
-    {
-        $query->where('featured', true);
     }
 
     public function getExcerpt()

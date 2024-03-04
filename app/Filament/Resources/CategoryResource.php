@@ -21,7 +21,12 @@ class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+
+    public static function label(): string
+    {
+        return 'Project Categories';
+    }
 
     public static function form(Form $form): Form
     {
@@ -45,7 +50,6 @@ class CategoryResource extends Resource
                         'blue' => 'Blue',
                         'red' => 'Red',
                         'yellow' => 'Yellow',
-                        // Add more options as needed
                     ])
                     ->nullable(),
                 Select::make('bg_color')
@@ -57,7 +61,6 @@ class CategoryResource extends Resource
                         'yellow' => 'Yellow',
                         'gold' => 'Gold',
                         'green' => 'Green',
-                        // Add more options as needed
                     ])
                     ->nullable(),
             ]);

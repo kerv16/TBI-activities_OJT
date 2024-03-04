@@ -33,6 +33,15 @@
             </div>
         </div>
 
+        <div class="flex items-center">
+            <span class="mr-2 text-gray-900">Number of Participants:</span>
+            <span class="mr-2 text-gray-900 font-semibold">{{ $post->number_of_participants }}</span>
+        </div>
+        <div class="flex items-center">
+            <span class="mr-2 text-gray-900">Event Type:</span>
+            <span class="mr-2 text-gray-900 font-semibold">{{ $post->event_type }}</span>
+        </div>
+
         <!-- Displaying the post body -->
         <div class="py-3 text-lg prose text-justify text-gray-800 article-content">
             {!! $post->body !!}
