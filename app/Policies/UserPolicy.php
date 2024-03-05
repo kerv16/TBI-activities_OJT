@@ -7,7 +7,8 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
-    public function viewAdmin(User $user) : bool{
+    public function viewAdmin(User $user): bool
+    {
         return $user->isAdmin() || $user->isEditor();
     }
 
@@ -65,5 +66,9 @@ class UserPolicy
     public function forceDelete(User $user, User $model): bool
     {
         return $user->isAdmin();
+    }
+    public function generateReport(User $user)
+    {
+        return $user->role === 'ADMIN';
     }
 }

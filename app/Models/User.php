@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -55,6 +56,15 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'role'
     ];
+
+    public function fill(array $attributes)
+    {
+        if (isset($attributes['password'])) {
+            $attributes['password'] = Hash::make($attributes['password']);
+        }
+
+        return parent::fill($attributes);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

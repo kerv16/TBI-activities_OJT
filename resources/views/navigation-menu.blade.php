@@ -3,7 +3,8 @@
         <a href="{{ route('home') }}" :active="request()->routeIs('home')"
             class="flex items-center font-semibold rounded-tl-3xl">
             <img src="{{ asset('images/TBI_logo.jpg') }}" alt="Icon" class="w-16 h-auto rounded-full">
-            <h1 class="h-16 flex items-center text-blue-950 md:flex hidden">&nbsp;TBI-</h1><span class="md:flex hidden">Activities</span>
+            <h1 class="h-16 flex items-center text-blue-950 md:flex hidden">&nbsp;TBI-</h1><span
+                class="md:flex hidden">Activities</span>
         </a>
         <div class="top-menu ml-10 hidden md:flex">
             <div class="flex space-x-4">
@@ -21,9 +22,11 @@
         </div>
         <div class="top-menu ml-10 hidden md:flex">
             <div class="flex space-x-4">
+                @can('generate-report', \App\Models\User::class)
                 <x-nav-link href="{{ route('posts.report') }}" :active="request()->routeIs('posts.report')">
                     <span class="text-lg">{{ __('Generate Report') }}</span>
                 </x-nav-link>
+                @endcan
             </div>
         </div>
     </div>

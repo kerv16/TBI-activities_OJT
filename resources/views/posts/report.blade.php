@@ -10,14 +10,14 @@
             <div class="mb-4">
                 <select class="rounded-2xl text-center" id="monthDropdown">
                     <option value="">Select a month</option>
-                    @for ($month = 1; $month <= 12; $month++)
-                        <option value="{{ $month }}">{{ date('F', mktime(0, 0, 0, $month, 1)) }}</option>
-                    @endfor
+                    @for ($month = 1; $month <= 12; $month++) <option value="{{ $month }}">{{ date('F', mktime(0, 0, 0,
+                        $month, 1)) }}</option>
+                        @endfor
                 </select>
                 <select class="rounded-2xl text-center" id="yearDropdown">
                     <option value="">Select a year</option>
                     @for ($year = date('Y'); $year >= 2023; $year--)
-                        <option value="{{ $year }}">{{ $year }}</option>
+                    <option value="{{ $year }}">{{ $year }}</option>
                     @endfor
                 </select>
             </div>
@@ -38,7 +38,21 @@
                 if (month) {
                     url += `/${month}`;
                 }
-                window.location.href = url;
+                fetch(url)
+                    .then(response => {
+                        if (response.status === 204) {
+                            alert('There are no events for the selected month or year.');
+                            return Promise.reject('No events found');
+                        }
+                        if (!response.ok) {
+                            throw new Error('Failed to generate report');
+                        }
+                        // Handle successful report generation
+                        window.open(url, '_blank');
+                    })
+                    .catch(error => {
+                        console.error('There has been a problem with your fetch operation:', error);
+                    });
             } else {
                 alert('Please select a year.');
             }
