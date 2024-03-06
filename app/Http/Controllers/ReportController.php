@@ -26,7 +26,9 @@ class ReportController extends Controller
         }
 
         // Fetch posts based on start and end dates
-        $posts = Post::whereBetween('published_at', [$startDate, $endDate])->get();
+        $posts = Post::whereBetween('published_at', [$startDate, $endDate])
+            ->orderBy('published_at', 'asc')
+            ->get();
 
         // Determine the event label based on the count of posts
         $eventLabel = $posts->count() > 1 ? 'Events' : 'Event';
