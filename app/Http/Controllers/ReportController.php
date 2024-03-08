@@ -48,32 +48,11 @@ class ReportController extends Controller
             $dompdf = new Dompdf($options);
             $options->set('isPhpEnabled', true);
 
+            // Determine the date label
+            $dateLabel = $month ? date('F Y', strtotime($startDate)) : "Year $year";
+
             // HTML content for the PDF
-            if ($month) {
-                $html = '<div style="text-align:center"><h1>' . $eventLabel . ' for ' . date('F Y', strtotime($startDate)) . '</h1></div>' . '<br>';
-            } else {
-                $html = '<div style="text-align:center"><h1>' . $eventLabel . ' for Year ' . $year . '</h1></div>' . '<br>';
-            }
-
-            $html .= '<hr>' . '<br>';
-
-            foreach ($posts as $post) {
-                $html .= '<h4><strong>Event Name: &nbsp; </strong>' . $post->title . '</h4>';
-                $html .= '<p><strong>Event Type:</strong> ' . $post->event_type . '</p>';
-                $html .= '<p><strong>Date:</strong> ' . $post->published_at->format('F d, Y') . '</p>';
-                $html .= '<p><strong>No. of Participants:</strong> ' . $post->number_of_participants . '</p>';
-
-                // Image
-                // $imageUrl = $post->getThumbnailUrl();
-                // if ($imageUrl) {
-                //     $html .= '<img src="' . $imageUrl . '" alt="Event Image" style="max-width: 100%;">';
-                // }
-
-                // Description of the event
-                $html .= '<p><strong></strong> ' . $post->body . '</p>' . '<br>' . '<br>';
-
-                $html .= '<hr>' . '<br>' . '<br>'; // Add a horizontal line between posts
-            }
+            $html = view('generateReport.pdf', compact('eventLabel', 'dateLabel', 'posts'))->render();
 
             // Load HTML content into DOMpdf
             $dompdf->loadHtml($html);

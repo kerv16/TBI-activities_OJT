@@ -27,4 +27,3 @@ Route::middleware([
 });
 
 Route::get('/generate-pdf/{year}/{month?}', [ReportController::class, 'generatePdfReport']);
-Route::get('/posts', 'PostsController@index')->name('posts.show');

@@ -1,4 +1,5 @@
-<nav x-data="{ open: false }" class="flex items-center justify-between py-3 px-6 border-b border-gray-100 text-2xl">
+<nav x-data="{ open: false }"
+    class="flex items-center justify-between py-3 px-6 border-b border-gray-200 text-2xl shadow-lg">
     <div id="nav-left" class="flex items-center ">
         <a href="{{ route('home') }}" :active="request()->routeIs('home')"
             class="flex items-center font-semibold rounded-tl-3xl">

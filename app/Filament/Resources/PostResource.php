@@ -79,11 +79,11 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
                 ImageColumn::make('image'),
                 TextColumn::make('title')->sortable()->searchable(),
                 TextColumn::make('slug')->sortable()->searchable(),
                 TextColumn::make('author.name')->sortable()->searchable(),
-                TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
