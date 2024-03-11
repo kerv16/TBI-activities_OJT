@@ -81,8 +81,8 @@ class PostResource extends Resource
             ->columns([
                 TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
                 ImageColumn::make('image'),
-                TextColumn::make('title')->sortable()->searchable(),
-                TextColumn::make('slug')->sortable()->searchable(),
+                TextColumn::make('title')->sortable()->searchable()->sortable(),
+                TextColumn::make('slug')->sortable()->searchable()->sortable(),
                 TextColumn::make('author.name')->sortable()->searchable(),
             ])
             ->actions([
