@@ -19,11 +19,10 @@
 
 <body>
   <div style="text-align:center">
-    <h1>{{ $eventLabel }} for {{ $dateLabel }}</h1>
+    {{-- <h1>{{ $eventLabel }} for {{ $dateLabel }}</h1> --}}
   </div>
   <br>
-  <hr>
-  <br>
+  {{-- <hr> --}}
 
   @foreach ($posts as $post)
   <div class="post">
@@ -49,7 +48,13 @@
     @endif
 
     <div class="description">
-      <p>{!! str_replace($imageName, '', strip_tags($post->body, '<p><a><ul><ol><li><strong><em><u><br><span><h1><h2><h3><h4><h5><h6>')) !!}</p>
+      @php
+      // Remove img tags from the post body
+      $bodyWithoutImages = preg_replace('/<img[^>]+\>/i', '', $post->body);
+      // Remove image filename and file size from the post body
+      $bodyWithoutImageNames = preg_replace('/_[a-f\d-]+\.[a-zA-Z]{3,4}\s\d+(\.\d+)?\s(KB|MB)/i', '', $bodyWithoutImages);
+      @endphp
+      <p>{!! strip_tags($bodyWithoutImageNames, '<p><a><ul><ol><li><strong><em><u><br><span><h1><h2><h3><h4><h5><h6>') !!}</p>
     </div>
     <br>
     <br>

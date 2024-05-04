@@ -7,6 +7,7 @@
             <h1 class="h-16 flex items-center text-blue-950 md:flex hidden">&nbsp;TBI-</h1><span
                 class="md:flex hidden">Activities</span>
         </a>
+        @auth
         <div class="top-menu ml-10 hidden md:flex">
             <div class="flex space-x-4">
                 <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
@@ -21,6 +22,13 @@
                 </x-nav-link>
             </div>
         </div>
+        {{-- <div class="top-menu ml-10 hidden md:flex">
+            <div class="flex space-x-4">
+                <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.index')">
+                    <span class="text-lg">{{ __('Event') }}</span>
+                </x-nav-link>
+            </div>
+        </div> --}}
         <div class="top-menu ml-10 hidden md:flex">
             <div class="flex space-x-4">
                 @can('generate-report', \App\Models\User::class)
@@ -48,8 +56,9 @@
                     <path d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
+            @endauth
         </div>
-        <div x-show="open" @click.away="open = false" class="md:hidden">
+        <div x-show="open && @auth true @else false @endauth" @click.away="open = false" class="md:hidden">
             <!-- Your mobile menu items go here -->
             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')"
                 class="block px-4 py-2 text-gray-500 hover:text-black">Latest</x-nav-link>

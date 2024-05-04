@@ -1,7 +1,6 @@
-<footer
-    class="gap-1 text-sm space-x-4 flex items-center border-t border-gray-200 flex-wrap justify-center py-4 ">
+<footer class="gap-1 text-sm space-x-4 flex items-center border-t border-gray-200 flex-wrap justify-center py-4 ">
     <div class="flex items-center space-x-2">
-        <div>Like us on our Facebook page</div>
+        <div><span style='font-size:30px;'>&#128077;</span>Like us on our Facebook page</div>
     </div>
     <a class="text-gray-700 hover:text-blue-950 flex items-center" href="https://www.facebook.com/navigatu"
         target="_blank">

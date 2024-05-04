@@ -48,6 +48,9 @@ class ReportController extends Controller
             $dompdf = new Dompdf($options);
             $options->set('isPhpEnabled', true);
 
+            // Set paper size to A4
+            $dompdf->setPaper('A4', 'portrait');
+
             // Determine the date label
             $dateLabel = $month ? date('F Y', strtotime($startDate)) : "Year $year";
 

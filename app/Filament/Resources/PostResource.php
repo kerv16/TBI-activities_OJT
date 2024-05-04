@@ -25,7 +25,7 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -47,9 +47,24 @@ class PostResource extends Resource
                         TextInput::make('slug')->required()->minLength(1)->unique(ignoreRecord: true)->maxLength(150)
                             ->readonly(true), // Make slug field read-only
                         RichEditor::make('body')
+                            ->toolbarButtons([
+                                'blockquote',
+                                'bold',
+                                'bulletList',
+                                'codeBlock',
+                                'h2',
+                                'h3',
+                                'italic',
+                                'link',
+                                'orderedList',
+                                'redo',
+                                'strike',
+                                'underline',
+                                'undo',
+                            ])
                             ->required()
                             ->fileAttachmentsDirectory('posts/images')->columnSpanFull()
-                            ->placeholder('Insert text here and attach files needed.'),
+                            ->placeholder('Insert text here.'),
                         TextInput::make('number_of_participants')
                             ->numeric()
                             ->default(0)
@@ -60,6 +75,10 @@ class PostResource extends Resource
                 Section::make('Meta')->schema(
                     [
                         FileUpload::make('image')->image()->directory('posts/thumbnails')->required(),
+                        FileUpload::make('attachments')->directory('posts/attachments')
+                            ->multiple()
+                            ->preserveFilenames()   
+                            ->downloadable(),
                         DateTimePicker::make('published_at')->required(),
                         Forms\Components\Hidden::make('user_id')
                             ->default(Auth::id()),
@@ -79,11 +98,11 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
                 ImageColumn::make('image'),
-                TextColumn::make('title')->sortable()->searchable()->sortable(),
-                TextColumn::make('slug')->sortable()->searchable()->sortable(),
+                TextColumn::make('title')->sortable()->searchable(),
+                TextColumn::make('slug')->sortable()->searchable(),
                 TextColumn::make('author.name')->sortable()->searchable(),
+                TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

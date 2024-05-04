@@ -25,7 +25,7 @@
 
             <!-- This section displays the active search filter. -->
             @if ($search)
-                Containing : {{ $search }}
+                Searching : {{ $search }}
             @endif
             &nbsp;
             <!-- This dropdown allows the user to filter posts by year. -->

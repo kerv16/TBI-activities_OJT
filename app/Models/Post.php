@@ -18,6 +18,7 @@ class Post extends Model
         'slug',
         'image',
         'body',
+        'attachments',
         'published_at',
         'featured',
         'number_of_participants',
@@ -26,6 +27,7 @@ class Post extends Model
 
     protected $casts = [
         'published_at' => 'datetime',
+        'attachments' => 'array',
     ];
 
     protected static function booted()
@@ -86,5 +88,14 @@ class Post extends Model
         $isUrl = str_contains($this->image, 'http');
     
         return $isUrl ? $this->image : '/storage/' . $this->image;
+    }
+    public function getAttachmentUrls()
+    {
+        $urls = [];
+        foreach ($this->attachments as $attachment) {
+            $isUrl = str_contains($attachment, 'http');
+            $urls[] = $isUrl ? $attachment : Storage::disk('public')->url($attachment);
+        }
+        return $urls;
     }
 }

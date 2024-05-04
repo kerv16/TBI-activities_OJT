@@ -47,6 +47,23 @@
             {!! $post->body !!}
         </div>
 
+        @if ($post->getAttachmentUrls())
+            <div class="py-3">
+                <h2 class="text-xl font-semibold text-gray-800">Attachments:</h2>
+                @foreach ($post->getAttachmentUrls() as $attachmentUrl)
+                    @php
+                        $extension = pathinfo($attachmentUrl, PATHINFO_EXTENSION);
+                        $isImage = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']);
+                    @endphp
+                    @if ($isImage)
+                        <img src="{{ $attachmentUrl }}" alt="{{ basename($attachmentUrl) }}" class="my-2">
+                    @else
+                        <a href="{{ $attachmentUrl }}" class="block text-blue-600 hover:underline" target="_blank">{{ basename($attachmentUrl) }}</a>
+                    @endif
+                @endforeach
+            </div>
+        @endif
+
         <!-- Displaying the post categories -->
         <div class="flex items-center mt-10 space-x-4">
             @foreach ($post->categories as $category)
