@@ -33,7 +33,7 @@
             <div class="flex space-x-4">
                 @can('generate-report', \App\Models\User::class)
                 <x-nav-link href="{{ route('posts.report') }}" :active="request()->routeIs('posts.report')">
-                    <span class="text-lg">{{ __('Generate Report') }}</span>
+                    <span class="text-lg">{{ __('Generate Report and Activities') }}</span>
                 </x-nav-link>
                 @endcan
             </div>
