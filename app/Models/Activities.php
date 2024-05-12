@@ -11,14 +11,15 @@ class Activities extends Model
 
     protected $fillable = [
         'category_id',
-        'date_from',
-        'date_to',
+        'Date_from',
+        'Date_to',
         'purpose',
         'conducted_by',
         'participants',
         'invitation_email',
         'reference_slip',
         't_o',
+        'TBI_Activity',
     ];
 
     public function category()
